@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -13,8 +14,8 @@ public class TestbedDiagnostic extends LinearOpMode {
 
     // Actuators on home testbed
     private DcMotor testMotor;
-    private Servo servo1, servo2;
-
+    private Servo servo2;
+    private CRServo servo1;
     // OTOS Sensor declaration (Commented out for home testing)
     // private SparkFunOTOS otos;
 
@@ -23,7 +24,7 @@ public class TestbedDiagnostic extends LinearOpMode {
 
         // 1. Initialize Testbed Actuators
         testMotor = hardwareMap.get(DcMotor.class, "test_motor");
-        servo1 = hardwareMap.get(Servo.class, "servo_1");
+        servo1 = hardwareMap.get(CRServo.class, "servo_1");
         servo2 = hardwareMap.get(Servo.class, "servo_2");
 
         /* --- UNCOMMENT AT SCHOOL FOR OTOS SENSOR ---
@@ -46,18 +47,22 @@ public class TestbedDiagnostic extends LinearOpMode {
 
             // Servo Controls via Gamepad Buttons
             if (gamepad1.a) {
-                servo1.setPosition(1.0);
+                servo1.setPower(1.0);
                 servo2.setPosition(1.0);
             } else if (gamepad1.b) {
-                servo1.setPosition(0.0);
+                servo1.setPower(-1.0);
                 servo2.setPosition(0.0);
+            }
+            else if (gamepad1.x) {
+                servo1.setPower(0.0);
+                servo2.setPosition(0.5);
             }
 
             // Motor and Servo Telemetry Output
             telemetry.addData("--- HOME TESTBED ACTUATORS ---", "");
             telemetry.addData("Motor Power", "%.2f", motorPower);
             telemetry.addData("Motor Encoder Position", testMotor.getCurrentPosition());
-            telemetry.addData("Servo 1 Position", "%.2f", servo1.getPosition());
+            telemetry.addData("Servo 1 Position", "%.2f", servo1.getPower());
             telemetry.addData("Servo 2 Position", "%.2f", servo2.getPosition());
 
             /* --- UNCOMMENT AT SCHOOL FOR OTOS TELEMETRY ---
