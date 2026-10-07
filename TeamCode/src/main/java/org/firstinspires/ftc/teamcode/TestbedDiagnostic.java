@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 // Un-comment this import when you are back at school with the OTOS sensor:
-import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
+
 
 @TeleOp(name = "Testbed Diagnostic (Home)", group = "Test")
 public class TestbedDiagnostic extends LinearOpMode {
